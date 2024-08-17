@@ -8,8 +8,7 @@ import java.util.*;
 
 public class MovelDAO {
 
-    private static final Fornecedor fornecedor = new Fornecedor("12345678901234",
-            "Forn Sofás","Indústria de Sofás");
+    private static final Fornecedor fornecedor = new FornecedorDAO().listarFornecedores().get(0);
 
     private static final Date dateCreate = new Date(2024, Calendar.AUGUST,17);
 
