@@ -17,41 +17,48 @@ import static com.loja_moveis.tools.Tools.verificaUser;
 @WebService
 public class FornecedoresService {
 
+    private final FornecedorDAO fornecedores;
+
+    public FornecedoresService() {
+        fornecedores = new FornecedorDAO();
+    }
+
     @WebResult(name = "fornecedor")
     public List<Fornecedor> listar() {
-        return FornecedorDAO.listarFornecedores();
+        return fornecedores.listarFornecedores();
     }
 
     @WebResult(name = "fornecedor")
-    public List<Fornecedor> listarPaginado(int numeroDaPagina, int tamanhoDaPagina) {
-        return FornecedorDAO.listarFornecedores().subList(
+    public List<Fornecedor> listarPaginado(@WebParam(name = "numPag") int numeroDaPagina,
+                                           @WebParam(name = "tamPag") int tamanhoDaPagina) {
+        return fornecedores.listarFornecedores().subList(
                 numeroDaPagina * tamanhoDaPagina,
-                Math.min((numeroDaPagina + 1) * tamanhoDaPagina, FornecedorDAO.listarFornecedores().size()));
+                Math.min((numeroDaPagina + 1) * tamanhoDaPagina, fornecedores.listarFornecedores().size()));
     }
 
     @WebResult(name = "fornecedor")
-    public Fornecedor buscar(String cnpj) throws SOAPException {
-        Fornecedor fornecedor = FornecedorDAO.buscarFornecedorPorCnpj(cnpj);
+    public Fornecedor buscar(@WebParam(name = "cnpj") String cnpj) throws SOAPException {
+        Fornecedor fornecedor = fornecedores.buscarFornecedorPorCnpj(cnpj);
         verificaFornecedor(fornecedor);
         return fornecedor;
     }
 
-    @WebResult(name = "fornecedor")
-    public void cadastrar(String cnpj, String nome, String endereco,
+    public String cadastrar(@WebParam(name = "fornecedor") Fornecedor fornecedor,
                           @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizadoException, SOAPException {
-        Fornecedor fornecedor = new Fornecedor(cnpj, nome, endereco);
         verificaUser(usuario);
-        FornecedorDAO.criarFornecedor(fornecedor);
+        fornecedores.criarFornecedor(fornecedor);
+        return "Fornecedor cadastrado com sucesso!";
     }
 
-    public void remover(String cnpj) {
-        FornecedorDAO.removeFornecedor(cnpj);
+    public String remover(@WebParam(name = "cnpj") String cnpj) {
+        fornecedores.removeFornecedor(cnpj);
+        return "Fornecedor removido com sucesso!";
     }
 
     public static void main(String[] args) {
-        Endpoint.publish("http://localhost:8080/fornecedores", new FornecedoresService());
-
+        Endpoint.publish("http://localhost:8081/fornecedores", new FornecedoresService());
+        System.out.println("Serviço inicializado!");
     }
 
 }

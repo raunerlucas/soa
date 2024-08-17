@@ -1,13 +1,10 @@
 package com.loja_moveis.modelos;
 
 import com.loja_moveis.adaptadores.AdaptadorDate;
-import java.util.Date;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Date;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -40,6 +37,18 @@ public class Produto {
     }
 
     public Produto() {
+    }
+
+    @Override
+    public String toString() {
+        return "\tProduto{" +
+                "\n\tcodigo=" + codigo +
+                "\n\t, nome='" + nome + '\'' +
+                "\n\t, descricao='" + descricao + '\'' +
+                "\n\t, preco=" + preco +
+                "\n\t, dataCriacao=" + dataCriacao +
+                "\n\t, fornecedor=" + fornecedor +
+                "}\n";
     }
 
     public int getCodigo() {

@@ -23,6 +23,15 @@ public class Movel extends Produto {
 	public Movel() {
 	}
 
+	@Override
+	public String toString() {
+		return "Movel{" +
+				super.toString()+
+				" tipoMadeira='" + tipoMadeira + '\'' +
+				", dimensoes='" + dimensoes + '\'' +
+				'}';
+	}
+
 	public String getTipoMadeira() {
 		return tipoMadeira;
 	}

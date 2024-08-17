@@ -8,14 +8,20 @@ import java.util.List;
 
 public class FornecedorDAO {
 
-    private static final List<Fornecedor> fornecedor =
-            new ArrayList<>(Collections.singletonList(new Fornecedor("123", "Forn Sofás", "Indústria de Sofás")));
+    private final List<Fornecedor> fornecedor;
 
-    public static List<Fornecedor> listarFornecedores() {
+    public FornecedorDAO() {
+        fornecedor =
+                new ArrayList<>(Collections.singletonList(
+                        new Fornecedor("123", "Forn Sofás", "Indústria de Sofás")));
+
+    }
+
+    public List<Fornecedor> listarFornecedores() {
         return fornecedor;
     }
 
-    public static Fornecedor buscarFornecedorPorCnpj(String cnpj) {
+    public Fornecedor buscarFornecedorPorCnpj(String cnpj) {
         for (Fornecedor f : fornecedor) {
             if (f.getCnpj().equals(cnpj)) {
                 return f;
@@ -24,11 +30,11 @@ public class FornecedorDAO {
         return null;
     }
 
-    public static void criarFornecedor(Fornecedor movel) {
+    public void criarFornecedor(Fornecedor movel) {
         fornecedor.add(movel);
     }
 
-    public static void removeFornecedor(String cnpj) {
+    public void removeFornecedor(String cnpj) {
         fornecedor.removeIf(f -> f.getCnpj().equals(cnpj));
     }
 }

@@ -13,7 +13,7 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.soap.SOAPException;
 import javax.xml.ws.Endpoint;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.loja_moveis.tools.Tools.verificaFornecedor;
@@ -23,62 +23,74 @@ import static com.loja_moveis.tools.Tools.verificaUser;
 @WebService
 public class ProdutosService {
 
-    private final List<? extends Produto> produtos = ProdutoDAO.listar();
+    private final ProdutoDAO produtos;
+    private final MovelDAO moveis;
+    private final FornecedorDAO fornecedores;
 
-    @WebResult(name = "produtos")
+    public ProdutosService() {
+        this.produtos = new ProdutoDAO();
+        this.moveis = new MovelDAO();
+        this.fornecedores = new FornecedorDAO();
+    }
+
+    @WebResult(name = "produto")
     public List<? extends Produto> listar() {
-        return produtos;
+        List<Produto> listaP = new ArrayList<>(produtos.listar());
+        listaP.addAll(moveis.listar());
+        return listaP;
     }
 
     @WebResult(name = "produtos")
-    public List<? extends Produto> listarPaginado(int numeroDaPagina, int tamanhoDaPagina) {
-        return produtos.subList(
-                numeroDaPagina * tamanhoDaPagina,
-                Math.min((numeroDaPagina + 1) * tamanhoDaPagina, produtos.size()));
+    public List<? extends Produto> listarPaginado(@WebParam(name = "numPag") int numeroDaPagina,
+                                                  @WebParam(name = "tamPag") int tamanhoDaPagina) {
+        int indiceInicial = numeroDaPagina * tamanhoDaPagina;
+        int indiceFinal = indiceInicial + tamanhoDaPagina;
+
+        indiceFinal = Math.min(indiceFinal, listar().size());
+        indiceInicial = Math.min(indiceInicial, indiceFinal);
+
+        return listar().subList(indiceInicial, indiceFinal);
     }
 
-
-    public void criarProtudo(int codigo, String nome, String descricao,
-                             double preco, Date dataCriacao, String cnpjFornecedor,
+    public String criarProtudo(@WebParam(name = "produto") Produto p,
                              @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizadoException, SOAPException {
-            verificaUser(usuario);
+        verificaUser(usuario);
 
-            Fornecedor fornecedor = FornecedorDAO.buscarFornecedorPorCnpj(cnpjFornecedor);
-            verificaFornecedor(fornecedor);
+        Fornecedor fornecedor = fornecedores.buscarFornecedorPorCnpj(p.getFornecedor().getCnpj());
+        verificaFornecedor(fornecedor);
 
-            Produto produto = new Produto(codigo, nome, descricao, preco, dataCriacao, fornecedor);
-            ProdutoDAO.criarProduto(produto);
+        p.setFornecedor(fornecedor);
+        produtos.criarProduto(p);
+        return "Produto criado com sucesso!";
     }
 
-
-    public void criarMovel(int codigo, String nome, String descricao,
-                           double preco, Date dataCriacao, String cnpjFornecedor,
-                           String material, String dimensoes,
+    public String criarMovel(@WebParam(name = "movel") Movel movel,
                            @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizadoException, SOAPException {
         verificaUser(usuario);
 
-        Fornecedor fornecedor = FornecedorDAO.buscarFornecedorPorCnpj(cnpjFornecedor);
+        Fornecedor fornecedor = fornecedores.buscarFornecedorPorCnpj(movel.getFornecedor().getCnpj());
         verificaFornecedor(fornecedor);
 
-        Movel movel = new Movel(codigo, nome, descricao, preco, dataCriacao,
-                fornecedor, material, dimensoes);
-        MovelDAO.criarMovel(movel);
+        movel.setFornecedor(fornecedor);
+        moveis.criarMovel(movel);
+        return "Móvel criado com sucesso!";
     }
 
-    public void excluirProduto(int codigo, @WebParam(name = "usuario", header = true) Usuario usuario)
+    public String excluirProduto(@WebParam(name = "cod") int codigo, @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizadoException, SOAPException {
         verificaUser(usuario);
-        ProdutoDAO.removerProduto(codigo);
+        produtos.removerProduto(codigo);
+        return "Produto removido com sucesso!";
     }
 
-    public void excluirMovel(int codigo, @WebParam(name = "usuario", header = true) Usuario usuario)
+    public String excluirMovel(@WebParam(name = "cod") int codigo, @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizadoException, SOAPException {
         verificaUser(usuario);
-        MovelDAO.removeMovel(codigo);
+        moveis.removeMovel(codigo);
+        return "Móvel removido com sucesso!";
     }
-
 
 
     public static void main(String[] args) {

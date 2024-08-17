@@ -1,7 +1,5 @@
 package com.loja_moveis.servicos;
 
-import java.util.GregorianCalendar;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -10,8 +8,9 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.WebFault;
+import java.util.GregorianCalendar;
 
-@WebFault(targetNamespace = "http://servicos.estoque.knight.com/excecoes/", name = "UsuarioNaoAutorizado")
+@WebFault(targetNamespace = "http://servicos.loja_moveis.com/excecoes/", name = "UsuarioNaoAutorizado")
 public class UsuarioNaoAutorizadoException extends Exception {
 
    private static final long serialVersionUID = 1L;

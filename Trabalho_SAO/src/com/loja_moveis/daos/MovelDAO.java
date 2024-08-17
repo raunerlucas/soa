@@ -8,25 +8,30 @@ import java.util.*;
 
 public class MovelDAO {
 
-    private static final Fornecedor fornecedor = FornecedorDAO.listarFornecedores().get(0);
+    private static final Fornecedor fornecedor = new FornecedorDAO().listarFornecedores().get(0);
 
     private static final Date dateCreate = new Date(2024, Calendar.AUGUST,17);
 
-    private static final List<Movel> moveis = new ArrayList<>(Arrays.asList(
-                        new Movel( 1, "Sofá Confort", "Sofá 3 lugares",
-                                 1500.00, dateCreate, fornecedor,
-                                "Madeira de Pinus", "2m x 1m x 1m"),
-                        new Movel( 2, "Mesa Jantar", "Mesa para 6 pessoas",
-                                800.00, dateCreate, fornecedor,
-                                "Madeira de Eucalipto", "2m x 1m"),
-                        new Movel( 3, "Cama Box", "Cama Box Casal", 1200.00, dateCreate, fornecedor,
-                                "Madeira de Pinus", "2m x 1,5m")));
+    private final List<Movel> moveis;
 
-    public static List<Movel> listarMoveis() {
+    public MovelDAO() {
+        this.moveis = new ArrayList<>(Arrays.asList(
+                new Movel( 1, "Sofá Confort", "Sofá 3 lugares",
+                        1500.00, dateCreate, fornecedor,
+                        "Madeira de Pinus", "2m x 1m x 1m"),
+                new Movel( 2, "Mesa Jantar", "Mesa para 6 pessoas",
+                        800.00, dateCreate, fornecedor,
+                        "Madeira de Eucalipto", "2m x 1m"),
+                new Movel( 3, "Cama Box", "Cama Box Casal", 1200.00, dateCreate, fornecedor,
+                        "Madeira de Pinus", "2m x 1,5m")));
+
+    }
+
+    public List<Movel> listar() {
         return moveis;
     }
 
-    public static List<Produto> buscarProdutoPorNome(String nome) {
+    public List<Produto> buscarProdutoPorNome(String nome) {
         List<Produto> resultado = new ArrayList<>();
         for (Produto p : moveis) {
             if (p.getNome().toLowerCase().contains(nome.toLowerCase())) {
@@ -36,11 +41,11 @@ public class MovelDAO {
         return resultado;
     }
 
-    public static void criarMovel(Movel movel) {
+    public void criarMovel(Movel movel) {
         moveis.add(movel);
     }
 
-    public static void removeMovel(int id) {
+    public void removeMovel(int id) {
         moveis.removeIf(movel -> movel.getCodigo() == id);
     }
 }

@@ -24,6 +24,15 @@ public class Fornecedor {
    public Fornecedor() {
    }
 
+   @Override
+   public String toString() {
+      return "Fornecedor{" +
+              "cnpj='" + cnpj + '\'' +
+              ", nomeFantasia='" + nomeFantasia + '\'' +
+              ", razaoSocial='" + razaoSocial + '\'' +
+              '}';
+   }
+
    public String getCnpj() {
       return cnpj;
    }
