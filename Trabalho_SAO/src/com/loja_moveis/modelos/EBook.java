@@ -1,4 +1,4 @@
-package com.knight.estoque.modelos;
+package com.loja_moveis.modelos;
 
 import java.util.List;
 

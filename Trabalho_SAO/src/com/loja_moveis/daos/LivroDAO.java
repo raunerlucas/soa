@@ -1,4 +1,4 @@
-package com.knight.estoque.daos;
+package com.loja_moveis.daos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.knight.estoque.modelos.Autor;
-import com.knight.estoque.modelos.EBook;
-import com.knight.estoque.modelos.Livro;
+import com.loja_moveis.modelos.EBook;
+import com.loja_moveis.modelos.Livro;
 
 public class LivroDAO {
 

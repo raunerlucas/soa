@@ -1,4 +1,4 @@
-package com.knight.estoque.modelos;
+package com.loja_moveis.modelos;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;

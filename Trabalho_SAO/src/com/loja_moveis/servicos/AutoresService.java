@@ -1,4 +1,4 @@
-package com.knight.estoque.servicos;
+package com.loja_moveis.servicos;
 
 import java.util.ArrayList;
 import java.util.Arrays;

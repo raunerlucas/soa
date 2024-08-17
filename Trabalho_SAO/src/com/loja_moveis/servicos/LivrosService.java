@@ -1,4 +1,4 @@
-package com.knight.estoque.servicos;
+package com.loja_moveis.servicos;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.soap.SOAPException;
 import javax.xml.ws.Endpoint;
-import com.knight.estoque.daos.LivroDAO;
-import com.knight.estoque.modelos.Livro;
-import com.knight.estoque.modelos.Usuario;
+import com.loja_moveis.daos.LivroDAO;
+import com.loja_moveis.modelos.Livro;
+import com.loja_moveis.modelos.Usuario;
 
 @WebService
 public class LivrosService {

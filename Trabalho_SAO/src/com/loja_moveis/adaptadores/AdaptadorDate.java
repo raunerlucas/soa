@@ -1,4 +1,4 @@
-package com.knight.estoque.adaptadores;
+package com.loja_moveis.adaptadores;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
