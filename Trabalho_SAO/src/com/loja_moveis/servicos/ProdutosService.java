@@ -15,7 +15,10 @@ import javax.xml.soap.SOAPException;
 import javax.xml.ws.Endpoint;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+
+import static com.loja_moveis.tools.Tools.verificaFornecedor;
+import static com.loja_moveis.tools.Tools.verificaUser;
+
 
 @WebService
 public class ProdutosService {
@@ -39,14 +42,13 @@ public class ProdutosService {
                              double preco, Date dataCriacao, String cnpjFornecedor,
                              @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizadoException, SOAPException {
-        if (usuario.getLogin().equals("soa") && usuario.getSenha().equals("soa")) {
+            verificaUser(usuario);
+
             Fornecedor fornecedor = FornecedorDAO.buscarFornecedorPorCnpj(cnpjFornecedor);
-            if (Objects.isNull(fornecedor))
-                throw new SOAPException("Fornecedor não encontrado");
+            verificaFornecedor(fornecedor);
+
             Produto produto = new Produto(codigo, nome, descricao, preco, dataCriacao, fornecedor);
             ProdutoDAO.criarProduto(produto);
-        } else
-            throw new UsuarioNaoAutorizadoException("Usuário não autorizado");
     }
 
 
@@ -55,32 +57,29 @@ public class ProdutosService {
                            String material, String dimensoes,
                            @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizadoException, SOAPException {
-        if (usuario.getLogin().equals("soa") && usuario.getSenha().equals("soa")) {
-            Fornecedor fornecedor = FornecedorDAO.buscarFornecedorPorCnpj(cnpjFornecedor);
-            if (Objects.isNull(fornecedor))
-                throw new SOAPException("Fornecedor não encontrado");
-            Movel movel = new Movel(codigo, nome, descricao, preco, dataCriacao,
-                    fornecedor, material, dimensoes);
-            MovelDAO.criarMovel(movel);
-        } else
-            throw new UsuarioNaoAutorizadoException("Usuário não autorizado");
+        verificaUser(usuario);
+
+        Fornecedor fornecedor = FornecedorDAO.buscarFornecedorPorCnpj(cnpjFornecedor);
+        verificaFornecedor(fornecedor);
+
+        Movel movel = new Movel(codigo, nome, descricao, preco, dataCriacao,
+                fornecedor, material, dimensoes);
+        MovelDAO.criarMovel(movel);
     }
 
     public void excluirProduto(int codigo, @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizadoException, SOAPException {
-        if (usuario.getLogin().equals("soa") && usuario.getSenha().equals("soa")) {
-            ProdutoDAO.removerProduto(codigo);
-        } else
-            throw new UsuarioNaoAutorizadoException("Usuário não autorizado");
+        verificaUser(usuario);
+        ProdutoDAO.removerProduto(codigo);
     }
 
     public void excluirMovel(int codigo, @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizadoException, SOAPException {
-        if (usuario.getLogin().equals("soa") && usuario.getSenha().equals("soa")) {
-            MovelDAO.removeMovel(codigo);
-        } else
-            throw new UsuarioNaoAutorizadoException("Usuário não autorizado");
+        verificaUser(usuario);
+        MovelDAO.removeMovel(codigo);
     }
+
+
 
     public static void main(String[] args) {
         Endpoint.publish("http://localhost:8080/produtos", new ProdutosService());

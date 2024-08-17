@@ -11,6 +11,9 @@ import javax.xml.soap.SOAPException;
 import javax.xml.ws.Endpoint;
 import java.util.List;
 
+import static com.loja_moveis.tools.Tools.verificaFornecedor;
+import static com.loja_moveis.tools.Tools.verificaUser;
+
 @WebService
 public class FornecedoresService {
 
@@ -27,8 +30,10 @@ public class FornecedoresService {
     }
 
     @WebResult(name = "fornecedor")
-    public Fornecedor buscar(String cnpj) {
-        return FornecedorDAO.buscarFornecedorPorCnpj(cnpj);
+    public Fornecedor buscar(String cnpj) throws SOAPException {
+        Fornecedor fornecedor = FornecedorDAO.buscarFornecedorPorCnpj(cnpj);
+        verificaFornecedor(fornecedor);
+        return fornecedor;
     }
 
     @WebResult(name = "fornecedor")
@@ -36,8 +41,8 @@ public class FornecedoresService {
                           @WebParam(name = "usuario", header = true) Usuario usuario)
             throws UsuarioNaoAutorizadoException, SOAPException {
         Fornecedor fornecedor = new Fornecedor(cnpj, nome, endereco);
-        if (usuario.getLogin().equals("soa") && usuario.getSenha().equals("soa"))
-            FornecedorDAO.criarFornecedor(fornecedor);
+        verificaUser(usuario);
+        FornecedorDAO.criarFornecedor(fornecedor);
     }
 
     public void remover(String cnpj) {
