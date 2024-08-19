@@ -4,7 +4,9 @@ import com.loja_moveis.adaptadores.AdaptadorDate;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -23,17 +25,20 @@ public class Produto {
     @XmlJavaTypeAdapter(AdaptadorDate.class)
     private Date dataCriacao = new Date();
 
-    private Fornecedor fornecedor;
+
+    @XmlElementWrapper(name = "fornecedores")
+    @XmlElement(name = "fornecedor")
+    private List<Fornecedor> fornecedores;
 
     public Produto(int codigo, String nome, String descricao, double preco,
                    Date dataCriacao,
-                   Fornecedor fornecedor) {
+                   List<Fornecedor> fornecedores) {
         this.codigo = codigo;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.dataCriacao = dataCriacao;
-        this.fornecedor = fornecedor;
+        this.fornecedores = fornecedores;
     }
 
     public Produto() {
@@ -47,7 +52,7 @@ public class Produto {
                 "\n\t, descricao='" + descricao + '\'' +
                 "\n\t, preco=" + preco +
                 "\n\t, dataCriacao=" + dataCriacao +
-                "\n\t, fornecedor=" + fornecedor +
+                "\n\t, fornecedor=" + fornecedores +
                 "}\n";
     }
 
@@ -91,11 +96,11 @@ public class Produto {
         this.dataCriacao = dataCriacao;
     }
 
-    public Fornecedor getFornecedor() {
-        return fornecedor;
+    public List<Fornecedor> getFornecedores() {
+        return fornecedores;
     }
 
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
+    public void setFornecedores(List<Fornecedor> fornecedores) {
+        this.fornecedores = fornecedores;
     }
 }

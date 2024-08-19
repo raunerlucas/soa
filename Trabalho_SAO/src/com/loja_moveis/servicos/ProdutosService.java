@@ -57,10 +57,11 @@ public class ProdutosService {
             throws UsuarioNaoAutorizadoException, SOAPException {
         verificaUser(usuario);
 
-        Fornecedor fornecedor = fornecedores.buscarFornecedorPorCnpj(p.getFornecedor().getCnpj());
+        List<Fornecedor> fornecedor = fornecedores.buscarFornecedorPorCnpj(p.getFornecedores());
         verificaFornecedor(fornecedor);
 
-        p.setFornecedor(fornecedor);
+
+        p.setFornecedores(fornecedor);
         produtos.criarProduto(p);
         return "Produto criado com sucesso!";
     }
@@ -70,10 +71,10 @@ public class ProdutosService {
             throws UsuarioNaoAutorizadoException, SOAPException {
         verificaUser(usuario);
 
-        Fornecedor fornecedor = fornecedores.buscarFornecedorPorCnpj(movel.getFornecedor().getCnpj());
+        List<Fornecedor> fornecedor = fornecedores.buscarFornecedorPorCnpj(movel.getFornecedores());
         verificaFornecedor(fornecedor);
 
-        movel.setFornecedor(fornecedor);
+        movel.setFornecedores(fornecedor);
         moveis.criarMovel(movel);
         return "Móvel criado com sucesso!";
     }

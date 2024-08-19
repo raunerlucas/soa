@@ -12,7 +12,7 @@ public class ProdutoDAO {
         this.produtos = new ArrayList<>(
                 Collections.singletonList(
                         new Produto(1, "Cadeira", "Para mesa de jantar", 100.0
-                                , new Date(2024, Calendar.AUGUST, 17), new FornecedorDAO().listarFornecedores().get(0))));
+                                , new Date(2024, Calendar.AUGUST, 17), new FornecedorDAO().listarFornecedores())));
     }
 
     public List<Produto> listar() {

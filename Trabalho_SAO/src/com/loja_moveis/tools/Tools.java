@@ -5,10 +5,15 @@ import com.loja_moveis.modelos.Usuario;
 import com.loja_moveis.servicos.UsuarioNaoAutorizadoException;
 
 import javax.xml.soap.SOAPException;
+import java.util.List;
 import java.util.Objects;
 
 public class Tools {
 
+    public static void verificaFornecedor(List<Fornecedor> fornecedor) throws SOAPException {
+        if (Objects.isNull(fornecedor))
+            throw new SOAPException("Fornecedor não encontrado");
+    }
     public static void verificaFornecedor(Fornecedor fornecedor) throws SOAPException {
         if (Objects.isNull(fornecedor))
             throw new SOAPException("Fornecedor não encontrado");

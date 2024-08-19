@@ -2,10 +2,12 @@ package com.loja_moveis.modelos;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
+import java.util.List;
 
-@XmlRootElement
+@XmlRootElement(name = "Movel")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Movel extends Produto {
 
@@ -14,7 +16,7 @@ public class Movel extends Produto {
 	private String dimensoes;
 
 	public Movel(int codigo, String nome, String descricao, double preco,
-				 Date dataCriacao, Fornecedor fornecedor, String tipoMadeira, String dimensoes) {
+				 Date dataCriacao, List<Fornecedor> fornecedor, String tipoMadeira, String dimensoes) {
 		super(codigo, nome, descricao, preco, dataCriacao, fornecedor);
 		this.tipoMadeira = tipoMadeira;
 		this.dimensoes = dimensoes;
