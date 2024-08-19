@@ -3,7 +3,7 @@
 Este projeto implementa um Webservice SOAP para gerenciar produtos e móveis de uma loja de móveis, utilizando JAX-WS e JAXB para a comunicação e manipulação de dados em XML.
 ### Autores
 
-[Rauner & Bruna]
+## Rauner & Bruna
 
 ### Funcionalidades
 
@@ -94,8 +94,3 @@ Você pode testar o webservice utilizando:
 - Implemente a lógica de persistência em um banco de dados real para um sistema em produção.
 - Adicione tratamento de erros mais robusto e validações adicionais para aumentar a segurança e confiabilidade do webservice.
 - Explore recursos avançados do JAX-WS e JAXB para customizar o comportamento do webservice e a estrutura dos dados XML.
-
-### Contato
-
-[Seu Email]
-
