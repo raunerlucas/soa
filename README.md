@@ -1,9 +1,11 @@
 ## Trabalho SOA - Loja de Móveis
 
 Este projeto implementa um Webservice SOAP para gerenciar produtos e móveis de uma loja de móveis, utilizando JAX-WS e JAXB para a comunicação e manipulação de dados em XML.
-### Autores
 
-## Rauner & Bruna
+### Autores  
+Rauner & Bruna
+
+Link do repositório: [github.com/raunerlucas/soa](https://github.com/raunerlucas/soa)
 
 ### Funcionalidades
 
@@ -15,6 +17,14 @@ O webservice oferece as seguintes funcionalidades:
 - **Criar Móvel:** Cria um novo móvel, herdando as características de um produto e adicionando material e dimensões. Requer autenticação.
 - **Excluir Produto:** Exclui um produto pelo seu código. Requer autenticação.
 - **Excluir Móvel:** Exclui um móvel pelo seu código. Requer autenticação.
+
+Funcionalidades para Fornecedor:
+
+- **Listar Fornecedores:** Retorna uma lista de todos os fornecedores cadastrados.
+- **Listar Fornecedores Paginados:** Retorna uma lista de fornecedores de forma paginada, especificando o número da página e a quantidade de produtos por página.
+- **Criar fornecedor:** Cria um fornecedor com cnpj, nomefantasia, nome. Requer autenticação.
+- **Excluir fornecedor:** Exclui um fornecedor pelo seu cnpj. Requer autenticação.
+
 
 ### Tecnologias Utilizadas
 
@@ -35,7 +45,7 @@ O projeto está organizado em pacotes:
 
 ### Persistência de Dados
 
-Para simplificar, a persistência de dados é simulada utilizando listas em memória (`ArrayList`) dentro das classes DAO. Em um sistema real, seria recomendado utilizar um banco de dados.
+Para simplificar, a persistência de dados é simulada utilizando listas em memória (`ArrayList`) dentro das classes DAO. 
 
 ### Autenticação
 
@@ -44,14 +54,16 @@ A autenticação é implementada de forma básica, verificando o login e senha d
 ### Execução do Projeto
 
 1. **Compile o projeto:** Utilize um IDE (Eclipse, IntelliJ) ou o comando `javac` para compilar as classes Java.
-2. **Execute o webservice:** Execute a classe `ProdutosService`. O serviço estará disponível em `http://localhost:8080/produtos`.
+2. **Execute o webservice de Produto:** Execute a classe `ProdutosService`. O serviço estará disponível em `http://localhost:8080/produtos`.
+3. **Execute o webservice Fornecedor:** Execute a classe `FornecedoresService`. O serviço estará disponível em `http://localhost:8081/fornecedores`.
 
 ### Testes
 
 Você pode testar o webservice utilizando:
 
-- **SoapUI:** Crie um projeto no SoapUI com o WSDL do serviço (`http://localhost:8080/produtos?wsdl`) e gere requisições para cada método.
-- **Postman:** Configure requisições POST com o endpoint `http://localhost:8080/produtos`, header `Content-Type: text/xml` e o corpo da requisição no formato XML. 
+- **SoapUI:** Crie um projeto no SoapUI com o WSDL do serviço (`http://localhost:8080/produtos?wsdl` ou `http://localhost:8081/fornecedores?wsdl`) e gere requisições para cada método.
+- **Postman:** Configure requisições POST com o endpoint `http://localhost:8080/produtos?wsdl` ou `http://localhost:8081/fornecedores?wsdl`, header `Content-Type: text/xml` e o corpo da requisição no formato XML.
+
 - **Qualquer cliente SOAP:** Utilize qualquer cliente SOAP para enviar requisições ao serviço.
 
 ### Exemplos de Requisições
@@ -91,6 +103,6 @@ Você pode testar o webservice utilizando:
 ### Observações
 
 - Este projeto é um exemplo didático e pode ser expandido e aprimorado para atender a requisitos mais complexos.
-- Implemente a lógica de persistência em um banco de dados real para um sistema em produção.
+- Implemente a lógica de persistência num banco de dados real para um sistema em produção.
 - Adicione tratamento de erros mais robusto e validações adicionais para aumentar a segurança e confiabilidade do webservice.
 - Explore recursos avançados do JAX-WS e JAXB para customizar o comportamento do webservice e a estrutura dos dados XML.
