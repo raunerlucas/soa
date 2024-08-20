@@ -3,7 +3,7 @@
 Este projeto implementa um Webservice SOAP para gerenciar produtos e móveis de uma loja de móveis, utilizando JAX-WS e JAXB para a comunicação e manipulação de dados em XML.
 
 ### Autores  
-Rauner & Bruna
+Rauner Lucas & Bruna Holanda
 
 Link do repositório: [github.com/raunerlucas/soa](https://github.com/raunerlucas/soa)
 
