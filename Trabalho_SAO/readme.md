@@ -5,7 +5,7 @@ Este projeto implementa um Webservice SOAP para gerenciar produtos e móveis de 
 ### Autores  
 Rauner & Bruna
 
-Link do repositório: [https://github.com/raunerlucas/soa](github.com/raunerlucas/soa)
+Link do repositório: [github.com/raunerlucas/soa](https://github.com/raunerlucas/soa)
 
 ### Funcionalidades
 
