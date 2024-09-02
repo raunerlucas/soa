@@ -1,0 +1,22 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="bruna.holanda@iteris.com.br" id="CRIA_TABELAS">
+        <comment>Cria Tabelas</comment>
+        <sqlFile path="criar_tabelas.sql"
+                 relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet author="bruna.holanda@iteris.com.br" id="INSERIR_DADOS">
+        <comment>Inserir Dados</comment>
+        <sqlFile splitStatements="false"
+                 endDelimiter="GO"
+                 path="inserir_dados.sql"
+                 relativeToChangelogFile="true" />
+    </changeSet>
+</databaseChangeLog>
