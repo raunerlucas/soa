@@ -59,10 +59,13 @@ public class ProdutoController {
         return ResponseEntity.ok(new MovelResponse(service.updateMovel(request, id)));
     }
 
+    @Operation(summary = "Lista fornecedores de um produto")
     @GetMapping("/{id}/fornecedores")
     public ResponseEntity<List<FornecedorResponse>> getByNome(@PathVariable Long id) {
         return ResponseEntity.ok(service.getFornecedoresByProduto(id).stream().map(FornecedorResponse::new).toList());
     }
+
+    @Operation(summary = "Deleta um produto")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleterById(@PathVariable Long id) {
         service.deleteById(id);
