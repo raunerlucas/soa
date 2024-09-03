@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -81,6 +82,14 @@ public class ProdutoService {
         Movel movel = movelRepository.findById(id).orElseThrow(ProdutoNotFoundException::new);
         generateMovel(movel, request);
         return movelRepository.save(movel);
+    }
+
+    public List<Fornecedor> getFornecedoresByProduto(Long id) {
+        return produtoRepository.findById(id).orElseThrow(ProdutoNotFoundException::new).getFornecedores();
+    }
+
+    public void deleteById(Long id) {
+        produtoRepository.deleteById(id);
     }
 
     private List<Fornecedor> getFornecedores(List<Long> fornecedorIds) {
