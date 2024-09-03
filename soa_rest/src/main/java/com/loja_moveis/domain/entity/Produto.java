@@ -31,6 +31,6 @@ public class Produto implements Serializable {
     @CreationTimestamp
     private Timestamp dataCriacao;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "produtos")
     private List<Fornecedor> fornecedores;
 }

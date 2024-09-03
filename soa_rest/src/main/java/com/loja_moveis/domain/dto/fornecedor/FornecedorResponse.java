@@ -13,9 +13,11 @@ import lombok.NoArgsConstructor;
 public class FornecedorResponse {
     private String cnpj;
     private String nomeFantasia;
+    private boolean ativo;
 
     public FornecedorResponse(Fornecedor fornecedor) {
         this.cnpj = fornecedor.getCnpj();
         this.nomeFantasia = fornecedor.getNomeFantasia();
+        this.ativo = fornecedor.isAtivo();
     }
 }

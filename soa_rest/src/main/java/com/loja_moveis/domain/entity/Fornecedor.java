@@ -2,10 +2,8 @@ package com.loja_moveis.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,6 +27,9 @@ public class Fornecedor implements Serializable {
     private boolean ativo;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "produto_fornecedores",
+            joinColumns = @JoinColumn(name = "fornecedores_id"),
+            inverseJoinColumns = @JoinColumn(name = "produto_id"))
     private List<Produto> produtos;
 }
