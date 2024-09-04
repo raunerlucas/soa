@@ -1,55 +1,104 @@
-# Loja de Móveis REST
+## Documentação do Projeto Loja de Móveis (SOA REST)
 
-1) Escolher um tema de um problema de sistema de informação a ser tratado computacionalmente, como por exemplo uma livraria (exemplo do livro).
+### Descrição do Projeto
 
-2) Fazendo uma análise rápida do negócio escolhido, selecionar duas classes de negócio que se relacionem por uma agregação, como as classes Livro e Autor, do texto. O relacionamento não pode ser 1 para 1. Pode ser 1 para n ou n para n. Esta análise deve determinar os atributos das classes e seus tipos de dados.
+Este projeto implementa um sistema de gerenciamento de Loja de Móveis utilizando uma arquitetura orientada a serviços (SOA) com REST. Ele fornece APIs RESTful para gerenciar clientes, produtos, pedidos e pagamentos. 
 
-3) Implementar as classes selecionadas em Java nos padrões do que foi exposto em sala, usando Spring Boot e fazendo uso do banco de dados H2. Estas classes devem substituir Livro e Autor no código.
+O projeto está dividido em diferentes módulos, cada um responsável por uma funcionalidade específica:
 
-4) Modificar o código implementando um webservice de um CRUD usando REST que permita a cada uma das duas classes:
+- **com.loja_moveis.model**: Contém as classes de modelo que representam as entidades do sistema, como Cliente, Produto, Pedido, etc.
+- **com.loja_moveis.service**: Contém a lógica de negócios do sistema, implementada como serviços.
+- **com.loja_moveis.controller**: Contém os controladores REST que expõem os serviços como APIs RESTful.
+- **com.loja_moveis.repository**: Contém as interfaces que definem as operações de acesso a dados para cada entidade. 
+- **com.loja_moveis.exception**: Contém as classes de exceção personalizadas do sistema.
+- **com.loja_moveis.config**: Contém as configurações do projeto, como configuração do banco de dados.
 
-4.1) a exibição de todos os objetos da classe, mostrando também os dados da outra classe no caso da classe principal.
+### Tecnologias Utilizadas
 
-4.2) a exibição de um elemento individual da classe, mediante a passagem de algum parâmetro para o webservice como o id (identificador único do objeto, chave primária do banco).
+- **Java 11:** Linguagem de programação principal.
+- **Spring Boot:** Framework para desenvolvimento de aplicações web.
+- **Spring Data JPA:** Simplifica o acesso a dados com JPA.
+- **Maven:** Gerenciamento de dependências.
+- **Swagger:** Documentação das APIs REST.
 
-4.3) a inserção de outros objetos das classes passados como parâmetro no corpo da chamada ao serviço.
+### Estrutura do Banco de Dados
 
-4.4) a exclusão de elementos das tabelas com base em um id passado na URL.
+O projeto utiliza um banco de dados relacional para armazenar os dados. A estrutura do banco de dados é composta pelas seguintes tabelas:
 
-4.5) a alteração de um elemento das tabelas com base em um id passado na URL e dados passados como parâmetro no corpo da chamada ao serviço.
+- **cliente:** Armazena informações sobre os clientes, como nome, CPF e endereço.
+- **produto:** Armazena informações sobre os produtos, como nome, descrição e preço.
+- **pedido:** Armazena informações sobre os pedidos, como data do pedido e cliente que realizou o pedido.
+- **item_pedido:** Armazena informações sobre os itens de um pedido, como produto e quantidade.
+- **pagamento:** Armazena informações sobre os pagamentos, como forma de pagamento e status.
 
-5) O resultado final deve ser um webservice usando REST que será testado usando a ferramenta SOAPUI ou a interface swagger-ui (incluir a dependência springdoc-openapi-starter-webmvc-ui).
+### Como executar o projeto
 
-6) Observações:
+1. **Clonar o repositório:** 
+```
+git clone https://github.com/raunerlucas/soa.git
+```
 
-6.1) O código disponibilizado já implementa todas as funcionalidades acima para Livro e Autor.
+2. **Navegar até o diretório do projeto:**
+```
+cd soa/soa_rest
+```
 
-6.2) Se quiser verificar a parte do banco de dados H2, alterar o application.properties da seguinte forma:
+3. **Construir o projeto com Maven:**
+```
+mvn clean install
+```
 
-6.2.1) trocar a url de conexão ao banco para "spring.datasource.url=jdbc:h2:file:~/test" (sem as áspas). Isso deixa o banco persistente em arquivo.
+4. **Executar a aplicação Spring Boot:**
+```
+mvn spring-boot:run
+```
 
-6.2.2) Acrestentar as linhas abaixo:
+5. **Acessar a documentação do Swagger:**
+```
+http://localhost:8080/swagger-ui/index.html
+```
 
-# Enabling H2 Console
+## Modelo de README.md
 
-spring.h2.console.enabled=true
+```markdown
+# Sistema de Loja de Móveis (SOA REST)
 
-# Custom H2 Console URL
+## Descrição
 
-spring.h2.console.path=/h2-console
+Este projeto implementa um sistema de gerenciamento de Loja de Móveis utilizando uma arquitetura orientada a serviços (SOA) com REST. Ele fornece APIs RESTful para gerenciar clientes, produtos, pedidos e pagamentos. 
 
-6.2.3) Com isso é possivel acessar o banco H2 por uma interface WEB no endereço http://localhost:8080/h2-console . Esta interface é parecida com a interface do MySQL Workbench.
+## Tecnologias
 
-Regras:
+* Java 11
+* Spring Boot
+* Spring Data JPA
+* Maven
+* Swagger
 
-a) por mais óbvio que seja, as classes Livro e Autor não podem usadas no trabalho a ser entregue;
+## Arquitetura
 
-b) preferencialmente em duplas ou trios. Grupos com mais de 3 estudantes não serão aceitos. Sugestão: manter o mesmo grupo do trabalho de SOAP.
+![Arquitetura SOA](./diagrama-arquitetura.png)
 
-c) valor: 100 pontos.
+## Funcionalidades
 
-d) os grupos devem divulgar o tema no grupo do WhatsApp. Temas iguais serão considerados COLA e a nota será dividida entra os grupos.
+* **Gerenciamento de Clientes:** Criar, listar, atualizar e excluir clientes.
+* **Gerenciamento de Produtos:** Criar, listar, atualizar e excluir produtos.
+* **Gerenciamento de Pedidos:** Criar, listar, atualizar e excluir pedidos.
+* **Gerenciamento de Pagamentos:** Criar, listar, atualizar e excluir pagamentos.
 
-Extras:
+## Como Executar
 
-a) implementar classes com relacionamento n por n bidirecional, com Lista dos elementos da outra classe em cada classe, vale mais 50%. Neste caso tem que resolver o problema de loop do JSON.
+1. Clone o repositório: `git clone https://github.com/raunerlucas/soa.git`
+2. Navegue até o diretório do projeto: `cd soa/soa_rest`
+3. Construa o projeto: `mvn clean install`
+4. Execute a aplicação: `mvn spring-boot:run`
+5. Acesse a documentação do Swagger: `http://localhost:8080/swagger-ui/index.html`
+
+## Autor
+
+* [Rauner Lucas](https://github.com/raunerlucas)
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+```
